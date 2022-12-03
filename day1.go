@@ -3,23 +3,16 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"os"
 	"sort"
 	"strconv"
 )
 
-func part1(input *os.File) {
-	most, current := 0, 0
-
-	fileScanner := bufio.NewScanner(input)
-	fileScanner.Split(bufio.ScanLines)
-
+func getArr(fileScanner *bufio.Scanner) []int {
+	list, current := []int{}, 0
 	for fileScanner.Scan() {
 		tmp := fileScanner.Text()
 		if tmp == "" {
-			if current > most {
-				most = current
-			}
+			list = append(list, current)
 			current = 0
 		} else {
 			tmpInt, err := strconv.Atoi(tmp)
@@ -27,38 +20,14 @@ func part1(input *os.File) {
 			current += tmpInt
 		}
 	}
-	
-	fmt.Println(most)
-}
-
-func part2(input *os.File) {
-	most, current := []int{0, 0, 0}, 0
-
-	fileScanner := bufio.NewScanner(input)
-	fileScanner.Split(bufio.ScanLines)
-
-	for fileScanner.Scan() {
-		tmp := fileScanner.Text()
-		if tmp == "" {
-			sort.Ints(most)
-			if current > most[0] {
-				most[0] = current
-			}
-			current = 0
-		} else {
-			tmpInt, err := strconv.Atoi(tmp)
-			check(err)
-			current += tmpInt
-		}
-	}
-	
-	fmt.Println(most, most[0] + most[1] + most[2])
+	return list
 }
 
 func main1() {
-	input, err := os.Open("input_1.txt")
+	input, fileScanner := getInput("input_1.txt")
 	defer input.Close()
-	check(err)
-	// part1(input)
-	part2(input)
+	list := getArr(fileScanner)
+	sort.Sort(sort.Reverse(sort.IntSlice(list)))
+	fmt.Println("first: ", list[0])
+	fmt.Println("second: ", list[0] + list[1] + list[2])
 }
