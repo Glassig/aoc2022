@@ -3,10 +3,11 @@ package main
 import (
 	"bufio"
 	"fmt"
+
 	"golang.org/x/exp/maps"
 )
 
-func findElem(f, s []byte) byte {
+func findSameElem(f, s []byte) byte {
 	for _, value1 := range f {
 		for _, value2 := range s {
 			if (value1 == value2) {
@@ -44,7 +45,7 @@ func day3Part1(fs *bufio.Scanner) {
 	for fs.Scan() {
 		line := fs.Text()
 		first, second := []byte(line[0:len(line)/2]), []byte(line[len(line)/2:])
-		elem := findElem(first, second)
+		elem := findSameElem(first, second)
 		result += getBytePrio(elem)
 	}
 	fmt.Println("Answer: ", result)
@@ -69,7 +70,7 @@ func day3Part2(fs *bufio.Scanner) {
 // A, 65 = 27
 // Z, 90 = 52
 
-func main() {
+func day3() {
 	input, fileScanner := getInput("input_3.txt")
 	defer input.Close()
 	day3Part2(fileScanner)

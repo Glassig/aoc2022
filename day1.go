@@ -23,7 +23,7 @@ func getArr(fileScanner *bufio.Scanner) []int {
 	return list
 }
 
-func main1() {
+func day1() {
 	input, fileScanner := getInput("input_1.txt")
 	defer input.Close()
 	list := getArr(fileScanner)

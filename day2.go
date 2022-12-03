@@ -40,13 +40,13 @@ func part1calc(s string) int {
 	return 0 + myChoice
 }
 
-func main2() {
+func day2() {
 	input, fileScanner := getInput("input_2.txt")
 	defer input.Close()
-	result := 0
-	for fileScanner.Scan() {
-		tmp := fileScanner.Text()
-		result += part2calc(tmp)
+	result1, result2, arr := 0, 0, convertFileScannerToArr(fileScanner)
+	for _, value := range arr {
+		result1 += part1calc(value)
+		result2 += part2calc(value)
 	}
-	fmt.Println("Answer: ", result)
+	fmt.Println("1:", result1, ": 2:", result2)
 }

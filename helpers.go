@@ -18,3 +18,15 @@ func getInput(path string) (*os.File, *bufio.Scanner) {
 	fileScanner.Split(bufio.ScanLines)
 	return input, fileScanner
 }
+
+func convertFileScannerToArr(fs *bufio.Scanner) []string {
+	result := []string{}
+	for fs.Scan() {
+		result = append(result, fs.Text())
+	}
+	return result
+}
+
+func main() {
+	day2()
+}
