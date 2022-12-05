@@ -1,49 +1,27 @@
 package main
 
 import (
-	"container/list"
 	"fmt"
 	"strconv"
 	"strings"
 )
 
-func getStacks(arr []string) (endOfSetupIndex int, stacks []*list.List) {
-	stacks = []*list.List{list.New(), list.New(), list.New(), list.New(), list.New(), list.New(), list.New(), list.New(), list.New()}
-
+func getStacks(arr []string) (int, [9][]byte) {
+	endOfSetupIndex := 0
+	stacks := [9][]byte{}
 	for index, value := range arr {
 		if value[1] == 49 { // begin number
 			endOfSetupIndex = index
 			break
 		}
-		if value[1] != 32 {
-			stacks[0].PushFront(value[1])
-		}
-		if value[5] != 32 {
-			stacks[1].PushFront(value[5])
-		}
-		if value[9] != 32 {
-			stacks[2].PushFront(value[9])
-		}
-		if value[13] != 32 {
-			stacks[3].PushFront(value[13])
-		}
-		if value[17] != 32 {
-			stacks[4].PushFront(value[17])
-		}
-		if value[21] != 32 {
-			stacks[5].PushFront(value[21])
-		}
-		if value[25] != 32 {
-			stacks[6].PushFront(value[25])
-		}
-		if value[29] != 32 {
-			stacks[7].PushFront(value[29])
-		}
-		if value[33] != 32 {
-			stacks[8].PushFront(value[33])
+		for a, i := 0, 1; i < 34; i = i + 4 {
+			if value[i] != 32 {
+				stacks[a] = append([]byte{value[i]}, stacks[a]...)
+			}
+			a++
 		}
 	}
-	return
+	return endOfSetupIndex, stacks
 }
 
 func getInt(str string) int {
@@ -52,30 +30,28 @@ func getInt(str string) int {
 	return ret
 }
 
-func day5StackSimple(endOfSetupIndex int, stacks []*list.List, arr []string) {
+func day5StackSimple(endOfSetupIndex int, stacks [9][]byte, arr []string) [9][]byte {
 	for index := endOfSetupIndex +2; index < len(arr); index++ {
 		values := strings.Split(arr[index], " ")
 		amount, from, to := getInt(values[1]), getInt(values[3])-1, getInt(values[5])-1
 		for i := 0; i < amount; i++ {
-			val := stacks[from].Back()
-			stacks[from].Remove(val)
-			stacks[to].PushBack(val.Value)
+			popped := stacks[from][len(stacks[from])-1]
+			stacks[from] = stacks[from][:len(stacks[from])-1]
+			stacks[to] = append(stacks[to], popped)
 		}
 	}
+	return stacks
 }
 
-func day5StackStack(endOfSetupIndex int, stacks []*list.List , arr []string) {
+func day5StackStack(endOfSetupIndex int, stacks [9][]byte , arr []string) [9][]byte {
 	for index := endOfSetupIndex +2; index < len(arr); index++ {
 		values := strings.Split(arr[index], " ")
 		amount, from, to := getInt(values[1]), getInt(values[3])-1, getInt(values[5])-1
-		tempStack := list.New()
-		for i := 0; i < amount; i++ {
-			val := stacks[from].Back()
-			stacks[from].Remove(val)
-			tempStack.PushFront(val.Value)
-		}
-		stacks[to].PushBackList(tempStack)
+		popped := stacks[from][len(stacks[from])-amount:]
+		stacks[from] = stacks[from][:len(stacks[from])-amount]
+		stacks[to] = append(stacks[to], popped...)
 	}
+	return stacks
 }
 
 func day5() {
@@ -83,10 +59,15 @@ func day5() {
 	defer input.Close()
 	arr := convertFileScannerToArr(fileScanner)
 	endOfSetupIndex, stacks := getStacks(arr)
-	// day5StackSimple(endOfSetupIndex, stacks, arr)
-	day5StackStack(endOfSetupIndex, stacks, arr)
-	
+	one := day5StackSimple(endOfSetupIndex, stacks, arr)
+	two := day5StackStack(endOfSetupIndex, stacks, arr)
+	fmt.Print("Answer part 1 is: ")
 	for i := 0; i < 9; i++ {
-		fmt.Print(stacks[i].Back().Value, " ")
+		fmt.Print(string(one[i][len(one[i])-1]))
+	}
+	fmt.Println()
+	fmt.Print("Answer part 2 is: ")
+	for i := 0; i < 9; i++ {
+		fmt.Print(string(two[i][len(two[i])-1]))
 	}
 }
