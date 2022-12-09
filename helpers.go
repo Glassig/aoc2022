@@ -28,5 +28,5 @@ func convertFileScannerToArr(fs *bufio.Scanner) []string {
 }
 
 func main() {
-	day8()
+	day9()
 }
