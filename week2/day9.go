@@ -22,34 +22,14 @@ func Day9() {
 	rope := [8]Coords{}
 	visited[tail] = true
 	for _, motion := range arr {
-		
-		moveHead(motion, &head)
-		// moveTailPart1(&tail, &visited, head)
-		moveTailPart2(&tail, &visited, head, &rope)
-		// for i := 17; i >= -5; i-- {
-		// 	for j := -11; j < 15; j++ {
-		// 		if head.x == j && head.y == i {
-		// 			fmt.Print("H")
-		// 		} else if tail.x == j && tail.y == i {
-		// 			fmt.Print("T")
-		// 		} else if i == 0 && j == 0{
-		// 			fmt.Print("s")
-		// 		}else {
-		// 			fmt.Print(".")
-		// 		}
-		// 	}
-		// 	fmt.Println()
-		// }
-			// fmt.Println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", motion)
+		// day9Part1(motion, &head, &tail, &visited)
+		day9Part2(motion, &head, &tail, &visited, &rope)
 	}
 
 	fmt.Println("Answer: ", len(visited))
 }
 
-func moveHead(motion string, head *Coords) {
-	instruction := strings.Split(motion, " ")
-	direction := instruction[0]
-	amount, _ := strconv.Atoi(instruction[1])
+func moveHead(direction string, amount int, head *Coords) {
 	switch direction {
 		case "U":
 			(*head).y += amount
@@ -61,6 +41,24 @@ func moveHead(motion string, head *Coords) {
 			(*head).x += amount
 		default:
 			fmt.Println("oooops")
+	}
+}
+
+func day9Part1(motion string, head, tail *Coords, visited *map[Coords]bool) {
+	instruction := strings.Split(motion, " ")
+	direction := instruction[0]
+	amount, _ := strconv.Atoi(instruction[1])
+	moveHead(direction, amount, head)
+	moveTailPart1(tail, visited, (*head))
+}
+
+func day9Part2(motion string, head, tail *Coords, visited *map[Coords]bool, rope *[8]Coords) {
+	instruction := strings.Split(motion, " ")
+	direction := instruction[0]
+	amount, _ := strconv.Atoi(instruction[1])
+	for iter := 0; iter < amount; iter++{
+		moveHead(direction, 1, head)
+		moveTailPart2(tail, visited, (*head), rope)
 	}
 }
 
