@@ -1,6 +1,7 @@
-package main
+package week2
 
 import (
+	week1 "aoc2022/week1"
 	"fmt"
 	"math"
 	"strconv"
@@ -11,10 +12,10 @@ type Coords struct {
 	x, y int
 }
 
-func day9() {
-	input, fileScanner := getInput("input_9.txt")
+func Day9() {
+	input, fileScanner := week1.GetInput("week2/input_9.txt")
 	defer input.Close()
-	arr := convertFileScannerToArr(fileScanner)
+	arr := week1.ConvertFileScannerToArr(fileScanner)
 	visited := make(map[Coords]bool)
 
 	head, tail := Coords{x: 0, y: 0}, Coords{x: 0, y: 0}

@@ -1,4 +1,4 @@
-package main
+package week1
 
 import (
 	"bufio"
@@ -16,7 +16,7 @@ func getArr(fileScanner *bufio.Scanner) []int {
 			current = 0
 		} else {
 			tmpInt, err := strconv.Atoi(tmp)
-			check(err)
+			Check(err)
 			current += tmpInt
 		}
 	}
@@ -24,7 +24,7 @@ func getArr(fileScanner *bufio.Scanner) []int {
 }
 
 func day1() {
-	input, fileScanner := getInput("input_1.txt")
+	input, fileScanner := GetInput("week1/input_1.txt")
 	defer input.Close()
 	list := getArr(fileScanner)
 	sort.Sort(sort.Reverse(sort.IntSlice(list)))

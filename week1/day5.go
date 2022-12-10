@@ -1,4 +1,4 @@
-package main
+package week1
 
 import (
 	"fmt"
@@ -26,7 +26,7 @@ func getStacks(arr []string) (int, [9][]byte) {
 
 func getInt(str string) int {
 	ret, err := strconv.Atoi(str)
-	check(err)
+	Check(err)
 	return ret
 }
 
@@ -55,9 +55,9 @@ func day5StackStack(endOfSetupIndex int, stacks [9][]byte , arr []string) [9][]b
 }
 
 func day5() {
-	input, fileScanner := getInput("input_5.txt")
+	input, fileScanner := GetInput("week1/input_5.txt")
 	defer input.Close()
-	arr := convertFileScannerToArr(fileScanner)
+	arr := ConvertFileScannerToArr(fileScanner)
 	endOfSetupIndex, stacks := getStacks(arr)
 	one := day5StackSimple(endOfSetupIndex, stacks, arr)
 	two := day5StackStack(endOfSetupIndex, stacks, arr)

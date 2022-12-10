@@ -1,4 +1,4 @@
-package main
+package week1
 
 import (
 	"fmt"
@@ -10,8 +10,8 @@ func getNumberRanges(ranges string) (int, int) {
 	numbers := strings.Split(ranges, "-")
 	lower, err := strconv.Atoi(numbers[0])
 	higher, err2 := strconv.Atoi(numbers[1])
-	check(err)
-	check(err2)
+	Check(err)
+	Check(err2)
 	return lower, higher
 }
 
@@ -41,9 +41,9 @@ func isOneRangeBetweenTheOther(first, second, lower, upper int) bool {
 }
 
 func day4() {
-	input, fileScanner := getInput("input_4.txt")
+	input, fileScanner := GetInput("week1/input_4.txt")
 	defer input.Close()
-	arr := convertFileScannerToArr(fileScanner)
+	arr := ConvertFileScannerToArr(fileScanner)
 	count := 0
 	for _, value := range arr {
 		// if isRangesCompletelyOverlap(value) {

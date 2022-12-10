@@ -4,7 +4,7 @@
 
 // 1 for Rock, 2 for Paper, and 3 for Scissors
 // 0 if you lost, 3 if the round was a draw, and 6 if you won
-package main
+package week1
 
 import (
 	"fmt"
@@ -41,9 +41,9 @@ func part1calc(s string) int {
 }
 
 func day2() {
-	input, fileScanner := getInput("input_2.txt")
+	input, fileScanner := GetInput("week1/input_2.txt")
 	defer input.Close()
-	result1, result2, arr := 0, 0, convertFileScannerToArr(fileScanner)
+	result1, result2, arr := 0, 0, ConvertFileScannerToArr(fileScanner)
 	for _, value := range arr {
 		result1 += part1calc(value)
 		result2 += part2calc(value)

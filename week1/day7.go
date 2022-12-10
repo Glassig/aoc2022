@@ -1,4 +1,4 @@
-package main
+package week1
 
 import (
 	"fmt"
@@ -50,7 +50,7 @@ func parseComand(command string, root *Dir, current **Dir) {
 			parts := strings.Split(command, " ")
 			var errors error
 			(*current).Files[parts[1]], errors = strconv.Atoi(parts[0])
-			check(errors)
+			Check(errors)
 	}
 }
 
@@ -102,9 +102,9 @@ func day7Part2(root *Dir, sums []int) int {
 }
 
 func day7() {
-	input, fileScanner := getInput("input_7.txt")
+	input, fileScanner := GetInput("week1/input_7.txt")
 	defer input.Close()
-	arr := convertFileScannerToArr(fileScanner)
+	arr := ConvertFileScannerToArr(fileScanner)
 	root := DirNew()
 	current := root
 	for _, value := range arr {

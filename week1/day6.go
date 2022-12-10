@@ -1,4 +1,4 @@
-package main
+package week1
 
 import (
 	"bufio"
@@ -33,7 +33,7 @@ func findFirstBlockOfUnique(blockSize int, fileScanner *bufio.Scanner) int {
 
 func day6() {
 	input, err := os.Open("input_6.txt")
-	check(err)
+	Check(err)
 	fileScanner := bufio.NewScanner(input)
 	// fmt.Println("Answer part1: ", findFirstBlockOfUnique(4, fileScanner))
 	fmt.Println("Answer part2: ", findFirstBlockOfUnique(14, fileScanner))

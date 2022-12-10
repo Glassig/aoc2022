@@ -1,6 +1,7 @@
-package main
+package week2
 
 import (
+	week1 "aoc2022/week1"
 	"fmt"
 	"strconv"
 	"strings"
@@ -101,7 +102,7 @@ func max(a, b int) int {
 }
 
 func day8() {
-	input, fileScanner := getInput("input_8.txt")
+	input, fileScanner := week1.GetInput("week2/input_8.txt")
 	defer input.Close()
 	matrix := [][]string{}
 	for fileScanner.Scan() {

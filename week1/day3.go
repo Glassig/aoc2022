@@ -1,4 +1,4 @@
-package main
+package week1
 
 import (
 	"bufio"
@@ -71,7 +71,7 @@ func day3Part2(fs *bufio.Scanner) {
 // Z, 90 = 52
 
 func day3() {
-	input, fileScanner := getInput("input_3.txt")
+	input, fileScanner := GetInput("week1/input_3.txt")
 	defer input.Close()
 	day3Part2(fileScanner)
 }
