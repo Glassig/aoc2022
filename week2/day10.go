@@ -16,17 +16,17 @@ func Day10() {
 	fmt.Println("Part 2: ")
 	for _, value := range arr {
 		command := strings.Split(value, " ")
+		checkClockAndXPart2(clock, x)
 		clock++
 		checkClockAndXPart1(clock, x, &sum)
-		checkClockAndXPart2(clock, x)
 		if command[0] == "noop" {
 			continue
 		}
 		number, _ := strconv.Atoi(command[1])
+		checkClockAndXPart2(clock, x)
 		clock++
 		checkClockAndXPart1(clock, x, &sum)
 		x += number
-		checkClockAndXPart2(clock, x)
 	}
 	fmt.Println()
 	fmt.Println("Part 1: ", sum)
@@ -44,7 +44,7 @@ func checkClockAndXPart2(clock, x int) {
 	} else {
 		fmt.Print(".")
 	}
-	if clock % 40 == 0 {
+	if (clock+1) % 40 == 0 {
 		fmt.Println()
 	}
 }
