@@ -20,16 +20,28 @@ func day9() {
 	head, tail := Coords{x: 0, y: 0}, Coords{x: 0, y: 0}
 	rope := [8]Coords{}
 	visited[tail] = true
-	for index, motion := range arr {
-			fmt.Print(len(visited), " ")
-			if index % 10 == 0 {
-				fmt.Println()
-			}
+	for _, motion := range arr {
 		
 		moveHead(motion, &head)
 		// moveTailPart1(&tail, &visited, head)
 		moveTailPart2(&tail, &visited, head, &rope)
+		// for i := 17; i >= -5; i-- {
+		// 	for j := -11; j < 15; j++ {
+		// 		if head.x == j && head.y == i {
+		// 			fmt.Print("H")
+		// 		} else if tail.x == j && tail.y == i {
+		// 			fmt.Print("T")
+		// 		} else if i == 0 && j == 0{
+		// 			fmt.Print("s")
+		// 		}else {
+		// 			fmt.Print(".")
+		// 		}
+		// 	}
+		// 	fmt.Println()
+		// }
+			// fmt.Println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", motion)
 	}
+
 	fmt.Println("Answer: ", len(visited))
 }
 
@@ -98,9 +110,6 @@ func moveOneLinkToAnother(head Coords, tail *Coords) {
 func moveTailPart2(tail *Coords, visited *map[Coords]bool, head Coords, rope *[8]Coords) {
 	moveOneLinkToAnother(head, &rope[0])
 	for index := 1; index < 8; index++ {
-		if isTwoCoordsTouching((*rope)[index-1], (*rope)[index]) {
-			break
-		}
 		moveOneLinkToAnother((*rope)[index-1], &rope[index])
 	}
 	for !isTwoCoordsTouching((*rope)[7], (*tail)) {
