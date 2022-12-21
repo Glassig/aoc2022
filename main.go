@@ -3,5 +3,5 @@ package main
 import "aoc2022/week3"
 
 func main() {
-	week3.Day20()
+	week3.Day21()
 }
